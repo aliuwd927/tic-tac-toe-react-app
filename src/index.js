@@ -3,9 +3,12 @@ import ReactDOM from 'react-dom';
 import './App.css';
 
 class Square extends Component {
+
   render() {
     return (
-      <button className="square">
+      <button 
+      className="square" 
+      onClick={()=>{this.props.onClick({value: 'X'})}}>
         {this.props.value}
       </button>
     )
@@ -13,8 +16,18 @@ class Square extends Component {
 }
 
 class Board extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      squares: Array(9).fill(null),
+    }
+  }
+
   renderSquare(i) {
-    return <Square value={i} />
+    return <Square 
+    value={this.state.squares[i]}
+    onClick={()=> this.handleClick(i)}
+     />
   }
 
   render(){
